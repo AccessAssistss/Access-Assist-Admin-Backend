@@ -56,7 +56,7 @@ const updateBlog = asyncHandler(async (req, res) => {
 });
 
 const getAllBlog = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find();
+  const blogs = await Blog.find({ status: true });
 
   const totalBlogs = blogs.length;
 
