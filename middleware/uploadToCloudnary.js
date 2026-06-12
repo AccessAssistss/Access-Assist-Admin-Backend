@@ -13,9 +13,28 @@ const uploadToCloudinary = (folderName, fieldNames, maxCounts) => {
     cloudinary: cloudinary,
     params: {
       folder: folderName,
-      allowed_formats: ["jpg", "jpeg", "png", "gif", "pdf"],
-      quality: 80,
+      allowed_formats: [
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "pdf",
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "txt",
+        "csv",
+        "zip",
+        "rar",
+        "7z",
+        "json",
+        "xml"
+      ],
     },
+
   });
 
   const upload = multer({
