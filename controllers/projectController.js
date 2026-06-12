@@ -183,6 +183,7 @@ module.exports = {
     createProject,
     updateProject,
     getAllProjects,
+    getAllActiveProjects,
     getSingleProject,
     updateProjectStatus,
 };

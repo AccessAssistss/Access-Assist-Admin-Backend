@@ -6,6 +6,7 @@ const {
     getAllProjects,
     getSingleProject,
     updateProjectStatus,
+    getAllActiveProjects,
 } = require("../controllers/projectController");
 
 const router = express.Router();
@@ -31,6 +32,7 @@ router.put(
 );
 
 router.get("/getAllProjects", getAllProjects);
+router.get("/getAllActiveProjects", getAllActiveProjects);
 router.get("/getSingleProject/:id", getSingleProject);
 router.patch("/updateProjectStatus/:id", updateProjectStatus);
 
