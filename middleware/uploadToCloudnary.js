@@ -34,11 +34,13 @@ const uploadToCloudinary = (folderName, fieldNames, maxCounts) => {
         "xml"
       ],
     },
-
   });
 
   const upload = multer({
     storage: storage,
+    limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
   });
 
   const fields = fieldNames.map((name, index) => ({
