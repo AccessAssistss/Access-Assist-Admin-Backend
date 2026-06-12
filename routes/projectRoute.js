@@ -1,6 +1,5 @@
 const express = require("express");
 const uploadToCloudinary = require("../middleware/uploadToCloudnary");
-
 const {
     createProject,
     updateProject,
