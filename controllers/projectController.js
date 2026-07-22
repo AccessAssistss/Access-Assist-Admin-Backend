@@ -15,9 +15,9 @@ const createProject = asyncHandler(async (req, res) => {
 
     const files = req.files["files"]
         ? req.files["files"].map((file) => ({
-              fileName: file.originalname,
-              fileUrl: file.path,
-          }))
+            fileName: file.originalname,
+            fileUrl: file.path,
+        }))
         : [];
 
     const project = await Project.create({
@@ -51,9 +51,9 @@ const updateProject = asyncHandler(async (req, res) => {
     const files =
         req.files["files"] && req.files["files"].length > 0
             ? req.files["files"].map((file) => ({
-                  fileName: file.originalname,
-                  fileUrl: file.path,
-              }))
+                fileName: file.originalname,
+                fileUrl: file.path,
+            }))
             : existingProject.files;
 
     const project = await Project.findByIdAndUpdate(

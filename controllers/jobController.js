@@ -1,7 +1,9 @@
 const { asyncHandler } = require("../utils/asyncHandler");
 const { Job } = require("../models/jobModel");
+const { sendJobApplicationNotification } = require("../utils/sendJobApplicationEmail");
 
 const createJob = asyncHandler(async (req, res) => {
+
   const { name, phone, email, qualification, state, country, jobRole } = req.body;
 
   if (!name || !phone || !email || !qualification || !state || !country || !jobRole) {
@@ -10,6 +12,7 @@ const createJob = asyncHandler(async (req, res) => {
   }
 
   const cv = req.files && req.files["cv"] ? req.files["cv"][0].path : null;
+  console.log("Files:", req.files);
 
   const job = await Job.create({
     name,
@@ -26,6 +29,18 @@ const createJob = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Job creation failed!");
   }
+
+    await sendJobApplicationNotification({
+      name,
+      email,
+      phone,
+      qualification,
+      state,
+      country,
+      jobRole,
+      cv,
+    });
+
 
   res.status(201).json({ message: "Job created successfully!", job });
 });
@@ -115,16 +130,24 @@ const getSingleJob = asyncHandler(async (req, res) => {
 });
 
 const deleteJob = asyncHandler(async (req, res) => {
-  const jobId = req.params.id;
+  const { id } = req.params;
 
-  const job = await Job.findByIdAndDelete(jobId);
+  if (!id) {
+    res.status(400);
+    throw new Error("Job ID is required");
+  }
+
+  const job = await Job.findByIdAndDelete(id);
 
   if (!job) {
     res.status(404);
-    throw new Error("Job not found!");
+    throw new Error("Job not found");
   }
 
-  res.status(200).json({ message: "Job deleted successfully!" });
+  res.status(200).json({
+    success: true,
+    message: "Job deleted successfully",
+  });
 });
 
 module.exports = {
